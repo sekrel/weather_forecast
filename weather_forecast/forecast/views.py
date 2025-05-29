@@ -10,7 +10,10 @@ from .forms import AddPostForm
 
 def give_forecast(request):
     load_dotenv()  # Загружает переменные из .env
+    if not os.getenv('forecast_key'):
+        return "нет api-ключa openweathermap"
     forecast_key = os.getenv('forecast_key')
+    
 
     city = request.POST.get("city")
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={forecast_key}&units=metric&lang=ru"
